@@ -86,3 +86,75 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+
+// To make a total number of months in the Arrey 
+
+var TotalMonths = finances.length;
+
+console.log("Total Months: " + TotalMonths);
+
+var netTotal = 0;
+
+// Loop through the dataset to calculate net total Profit/Losses
+for (var i = 0; i < finances.length; i++) {
+  netTotal += finances[i][1]; // Adding each month's Profit/Loss to netTotal
+}
+
+console.log("Total:", netTotal);
+
+
+//This code initializes a variable netTotal as 0 and then loops through each element (month) in the finances array, adding the Profit/Loss value (finances[i][1]) to 
+
+
+
+var totalChange = 0;
+var previousProfitLoss = finances[0][1]; // Initial profit/loss of the first month
+
+//console.log("previous profit/loss: " + previousProfitLoss);
+
+// Loop through the dataset starting from the second month
+for (var i = 1; i < finances.length; i++) {
+  var currentProfitLoss = finances[i][1];
+  var change = currentProfitLoss - previousProfitLoss;
+  totalChange += change;
+  previousProfitLoss = currentProfitLoss;
+}
+//console.log("current Profit/Loss: " + currentProfitLoss);
+//console.log("Total change: " + totalChange)
+//console.log("Change: " + change)
+
+// Calculate the average change
+
+var numberOfMonths = finances.length - 1; 
+var averageChange = totalChange / numberOfMonths;
+
+var roundedAverageChange = Math.ceil(averageChange);
+
+console.log("Average change in Profit/Losses:", roundedAverageChange);
+console.log("Average change in Profit/Losses:", (totalChange / (TotalMonths - 1)).toFixed(2));
+
+//increase and decrease  in Profit/Losses
+
+var greatestIncrease = { date: '', amount: -Infinity };
+var greatestDecrease = { date: '', amount: Infinity };
+
+for (var i = 1; i < finances.length; i++) {
+  var currentDate = finances[i][0];
+  var currentProfitLoss = finances[i][1];
+  var change = currentProfitLoss - previousProfitLoss;
+  totalChange += change;
+  previousProfitLoss = currentProfitLoss;
+
+  if (change > greatestIncrease.amount) {
+    greatestIncrease.date = currentDate;
+    greatestIncrease.amount = change;
+  }
+
+  if (change < greatestDecrease.amount) {
+    greatestDecrease.date = currentDate;
+    greatestDecrease.amount = change;
+  }
+}
+
+console.log("Greatest increase in Profit/Losses:", greatestIncrease.date, greatestIncrease.amount);
+console.log("Greatest decrease in Profit/Losses:", greatestDecrease.date, greatestDecrease.amount);
